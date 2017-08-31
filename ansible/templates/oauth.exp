@@ -1,0 +1,8 @@
+#! /usr/bin/expect -f
+set timeout -1
+
+spawn google-authenticator 
+
+expect {
+    "y/n" { send "y\r";exp_continue}
+}

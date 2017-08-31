@@ -1,8 +1,6 @@
-# ansible hosts example
-```
 172.16.0.1 ansible_port=22
 
 [test]
-172.16.0.1 ansible_port=22
 172.16.0.2 ansible_port=22
-```
+172.16.0.3 ansible_port=22
+

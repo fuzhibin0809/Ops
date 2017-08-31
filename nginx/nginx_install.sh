@@ -83,7 +83,6 @@ function ngx_devel_kit () {
 	fi
 }
 
-
 function nginx_user () {
 	if [[ no`grep /etc/group  -e  '^www:'` == "no" ]] ; then 
 		groupadd www

@@ -1,0 +1,13 @@
+---
+- hosts: "{{ host }}"
+  remote_user: root
+  become: yes
+  gather_facts: no
+  vars:
+    user: "{{ user }}"
+    path: "{{ path }}"
+  tasks:
+   - name: add user
+     user: name={{ user }} update_password=always shell=/bin/bash home=/home/{{ user }} 
+   - name: create ssh
+     authorized_key: user={{ user }} key="{{ lookup('file', '{{ path }}/{{ user }}.pub') }}"

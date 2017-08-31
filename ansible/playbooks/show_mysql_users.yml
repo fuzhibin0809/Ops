@@ -1,0 +1,12 @@
+---
+- hosts: "{{ host }}"
+  remote_user: fuzhibin
+  gather_facts: no
+  vars:
+    dbpasswd: "{{ dbpasswd }}"
+  tasks:
+   - name: fetch mysql_users
+     shell: /usr/local/mysql/bin/mysql -uroot -p'{{ dbpasswd }}' -N -e  "select user from mysql.user"
+     register: users
+   - name: show mysql_users
+     debug: var=users.stdout_lines

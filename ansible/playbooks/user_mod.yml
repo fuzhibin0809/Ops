@@ -1,0 +1,20 @@
+---
+- hosts: "{{ host }}"
+  remote_user: root
+  become: yes
+  gather_facts: no
+  vars:
+    user: "{{ user }}"
+  tasks:
+   - name: add admin group
+     shell: usermod -a -G admin {{ user }}
+   - name: modify user expires
+     shell: /usr/bin/chage -M 3 -I 0  {{ user }}
+   - name: create passwd
+     shell: cat /dev/urandom | head -n 10 | md5sum | head -c 10
+     register: init_psd
+   - name: encrypt passwd
+     shell: openssl passwd -1 {{ init_psd.stdout }}
+     register: encrypt_psd
+   - name: update passwd
+     user: name={{ user }} password={{ encrypt_psd.stdout }}

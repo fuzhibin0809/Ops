@@ -1,6 +1,6 @@
 ---
 - hosts: "{{ host }}"
-  remote_user: fuzhibin
+  remote_user: root
   gather_facts: no
   vars:
     dbpasswd: "{{ dbpasswd }}"

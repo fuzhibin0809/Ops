@@ -1,0 +1,18 @@
+---
+- hosts: "{{ host }}"
+  remote_user: fuzhibin
+  gather_facts: no
+  vars:
+   user: "{{ user }}"
+   dbpasswd: "{{ dbpasswd }}"
+  tasks:
+   - name: create a mysql account
+     action: mysql_user
+       config_file=/etc/my.cnf
+       login_user=root
+       login_password={{ dbpasswd }}
+       name={{ user }}
+       password=
+       host=127.0.0.1
+       priv="*.*:SELECT"
+       state=present

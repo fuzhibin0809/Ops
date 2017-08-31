@@ -1,0 +1,16 @@
+---
+- hosts: "{{ host }}"
+  remote_user: root
+  gather_facts: no
+  vars:
+    user: "{{ user }}"
+    dbpasswd: "{{ dbpasswd }}"
+  tasks:
+   - name: delete mysql user
+     action: mysql_user
+       name={{ user }}  
+       host=127.0.0.1
+       state=absent 
+       config_file=/etc/my.cnf 
+       login_user=root
+       login_password={{ dbpasswd }}

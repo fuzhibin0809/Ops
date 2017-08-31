@@ -1,0 +1,10 @@
+---
+- hosts: "{{ host }}"
+  remote_user: fuzhibin
+  gather_facts: no
+  tasks:
+   - name: fetch os_users
+     shell: ls /home/
+     register: users
+   - name: show os_users
+     debug: var=users.stdout_lines

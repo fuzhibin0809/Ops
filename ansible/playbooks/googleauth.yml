@@ -1,0 +1,27 @@
+---
+- hosts: "{{ host }}"
+  remote_user: root
+  become: yes
+  gather_facts: no
+  vars:
+    user: "{{ user }}"
+  tasks:
+   - name: upload an expect script
+     template:
+       src=/etc/ansible/templates/oauth.exp
+       dest=/tmp/oauth.exp
+       mode=0755
+   - name: run google-auth
+     command: /tmp/oauth.exp
+     become_user: "{{ user }}"
+     register: google_output
+   - name: send an email
+     local_action: mail
+       host=
+       port=
+       username=
+       password=
+       from=
+       to=
+       subject="Scan a QR Code"
+       body="用户{{ user }}已经在服务器{{ host }}中创建，请扫描链接中的二维码完成两步验证：{{ google_output.stdout_lines[3] }}"

@@ -24,7 +24,7 @@ function mysql_install () {
 	bin/mysqld --initialize --user=mysql --datadir=/data/mysql 
 	bin/mysql_ssl_rsa_setup 
 
- #   	echo "mysql 初始密码:"
+#   	echo "mysql 初始密码:"
 #	cat /data/mysql/mysql-error.log |grep -e 'root@localhos' |grep -e 'password'|sed -e 's/^.*: //g'
 }
 

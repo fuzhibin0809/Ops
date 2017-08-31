@@ -32,38 +32,3 @@ make install
 popd
 
 
-set -e
-
-mkdir -p /etc/shadowsocks
-cat >/etc/shadowsocks/config.json <<EOL
-{
-    "server":"x.x.x.x",
-    "server_port":11443,
-    "local_port":10800,
-    "password":"",
-    "timeout":86400,
-    "method":"rc4-md5",
-    "local_address":"0.0.0.0",
-    "fast_open":true
-}
-EOL
-
-cat >/etc/systemd/system/ss-redir.service <<EOL
-[Unit]
-Description=Shadowsocks Redirection
-After=network.target
-Requires=network.target
-
-[Service]
-Type=simple
-ExecStart=/usr/local/bin/ss-redir -c /etc/shadowsocks/config.json
-Restart=always
-RestartSec=3
-
-[Install]
-WantedBy=multi-user.target
-EOL
-
-systemctl daemon reload
-systemctl enable ss-redir
-systemctl start ss-redir
